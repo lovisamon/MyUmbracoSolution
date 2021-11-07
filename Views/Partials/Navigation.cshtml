@@ -1,0 +1,42 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using Umbraco.Cms.Core
+@using Umbraco.Cms.Core.Models.PublishedContent
+@using Umbraco.Cms.Core.Routing
+@using Umbraco.Extensions
+
+@inject IPublishedValueFallback PublishedValueFallback
+@inject IPublishedUrlProvider PublishedUrlProvider
+@*
+    This snippet displays a list of links of the pages immediately under the top-most page in the content tree.
+    This is the home page for a standard website.
+    It also highlights the current active page/section in the navigation with the CSS class "current".
+*@
+
+@*@{ var selection = Model.Root().Children.Where(x => x.IsVisible(PublishedValueFallback)).ToArray(); }*@
+@{
+	var selection = Umbraco.Content(Guid.Parse("a1569134-2294-4a85-bd0c-48d0f05e8608"))
+    .Children()
+    .Where(x => x.IsVisible())
+    .ToArray();
+}
+
+@if (selection.Length > 0)
+{
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container container-fluid">
+            <a class="navbar-brand" href="/">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    @foreach (var item in selection)
+                    {
+                        <a class="nav-link" href="@item.Url(PublishedUrlProvider)">@item.Name</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </nav>
+}
+

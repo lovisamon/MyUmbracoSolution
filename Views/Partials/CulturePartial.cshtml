@@ -1,0 +1,14 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+<div class="dropdown ms-5">
+    <button class="btn-language dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">Language</button>
+    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+        @foreach (var (culture, infos) in Model.Cultures)
+        {
+            <li><a class="dropdown-item" href="@Model.Url(culture)">
+                @culture.ToString()
+                @Umbraco.GetDictionaryValue("Settings/Languages/" + culture)
+            </a></li>
+        }
+    </ul>
+</div>

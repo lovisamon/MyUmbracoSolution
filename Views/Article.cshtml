@@ -1,0 +1,12 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Article>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+<h1>@Model.Value("heading")</h1>
+<h2 class="mb-5">@Model.Value("subheading")</h2>
+@if(@Model.Image != null) {
+    <img src="@Model.Image.Url()" class="mb-4 img-fluid" width="500" alt="">
+}
+<div><p>@Model.Value("content")</p></div>
